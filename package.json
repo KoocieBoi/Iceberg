@@ -1,0 +1,22 @@
+{
+  "name": "iceberg",
+  "version": "1.0.0",
+  "description": "the new Cloudy; bad code but hopefully better.",
+  "main": ".js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KoocieBoi/Iceberg.git"
+  },
+  "author": "Koocie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KoocieBoi/Iceberg/issues"
+  },
+  "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
