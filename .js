@@ -1,6 +1,8 @@
 let config = require("./.data/config");
-let dep = require("./file/dep");
-let { on, login } = dep;
+let utils = require("./file/utils/main");
+let { on, login } = utils;
+let Discord = require("discord.js");
 
 login(config.credentials.token);
-on("ready", () => console.log("ready"));
+on("ready", () => { console.log("ready"); });
+

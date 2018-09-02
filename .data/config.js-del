@@ -1,5 +1,5 @@
 module.exports = {
-  credentials: {
-    token: ""
-  }
+   credentials: {
+      token: ""
+   }
 }
