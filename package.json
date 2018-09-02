@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
   "dependencies": {
-    "discord.js": "^11.4.2"
+    "discord.js": "^11.4.2",
+    "eslint": "^5.4.0"
   }
 }
