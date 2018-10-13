@@ -3,5 +3,9 @@ let utils = require("./file/utils/main");
 let { on, login } = utils;
 let Discord = require("discord.js");
 
+let events = {
+   ready: require("./file/events/ready")
+};
+
 login(config.credentials.token);
-on("ready", () => { console.log("ready"); });
+on("ready", () => { events.ready(); });
