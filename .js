@@ -5,4 +5,3 @@ let Discord = require("discord.js");
 
 login(config.credentials.token);
 on("ready", () => { console.log("ready"); });
-
