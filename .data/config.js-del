@@ -1,5 +1,10 @@
 module.exports = {
    credentials: {
       token: ""
+   },
+   bot: {
+      id: "",
+      letterPrefix: "ib$",
+      mentionPrefix: () => { return `<${this.id}> `; }
    }
 }
