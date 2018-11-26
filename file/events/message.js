@@ -1,15 +1,13 @@
-const cfg = require("../../.data/config");
-const fs = require("fs");
-const utils = require("../utils/main");
-const { log } = utils;
+import cfg from "../../.data/config";
+import fs from "fs";
+import { log } from "../utils/main";
 
-module.exports = (msg, client) => {
+function eventExec (msg, client) {
    if (msg.author.bot || msg.channel.type !== "text") return;
 
-   // #region Arguments / Command
    let args, cmd, pfx = {
       letter: cfg.bot.letterPrefix,
-      mention: cfg.bot.mentionPrefix()
+      mention: cfg.bot.mentionPrefix
    };
 
    if (msg.content.startsWith(pfx.letter)) {
@@ -20,9 +18,7 @@ module.exports = (msg, client) => {
       args = msg.content.slice(pfx.mention.length).trim().split(" ");
       cmd = args.shift().toLowerCase();
    }
-   // #endregion
 
-   // #region Command Handler
    fs.readdir("./file/commands", (err, files) => {
       if (err) { log(err); return; }
       if (files.length <= 0) return;
@@ -32,6 +28,6 @@ module.exports = (msg, client) => {
          command(client, msg, cmd, args);
       });
    });
-   // #endregion
+}
 
-};
+export default eventExec;

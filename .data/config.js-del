@@ -1,10 +1,12 @@
-module.exports = {
+const config = {
    credentials: {
       token: ""
    },
    bot: {
       id: "",
-      letterPrefix: "ib$",
-      mentionPrefix: () => { return `<${this.id}> `; }
+      letterPrefix: "",
+      mentionPrefix: "<@id_here> "
    }
-}
+};
+
+export default config;
