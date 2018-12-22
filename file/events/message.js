@@ -4,20 +4,20 @@ import { log } from "../utils/main";
 
 function eventExec (msg, client) {
    if (msg.author.bot || msg.channel.type !== "text") return;
-
    let args, cmd, pfx = {
       letter: cfg.bot.letterPrefix,
       mention: cfg.bot.mentionPrefix
    };
+   if (!msg.content.startsWith(pfx.letter) && !msg.content.startsWith(pfx.mention)) return;
 
-   if (msg.content.startsWith(pfx.letter)) {
-      args = msg.content.slice(pfx.letter.length).trim().split(" ");
-      cmd = args.shift().toLowerCase();
-   }
-   if (msg.content.startsWith(pfx.mention)) {
-      args = msg.content.slice(pfx.mention.length).trim().split(" ");
-      cmd = args.shift().toLowerCase();
-   }
+
+   let sliceLength = msg.content.startsWith(pfx.letter)
+      ? pfx.letter.length
+      : (msg.content.startsWith(pfx.mention)
+         ? pfx.mention.length : undefined);
+
+   args = msg.content.slice(sliceLength).trim().split(" ");
+   cmd = args.shift().toLowerCase();
 
    fs.readdir("./file/commands", (err, files) => {
       if (err) { log(err); return; }
@@ -25,7 +25,7 @@ function eventExec (msg, client) {
 
       files.forEach((file) => {
          let command = require(`../commands/${file}`);
-         command(client, msg, cmd, args);
+         command.exec(client, msg, cmd, args);
       });
    });
 }
