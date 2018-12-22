@@ -18,7 +18,9 @@
   "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "eslint": "^5.8.0"
+    "eslint": "^5.10.0",
+    "hastebin.js": "^0.6.0",
+    "lowdb": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

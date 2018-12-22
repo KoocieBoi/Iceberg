@@ -65,3 +65,6 @@ typings/
 .vs/
 .vscode/
 file/.media/avatar.png
+.data/db/*
+!.data/db/databases.here
+!.data/db/commands.json

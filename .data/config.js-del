@@ -6,7 +6,8 @@ const config = {
       id: "",
       letterPrefix: "",
       mentionPrefix: "<@id_here> "
-   }
+   },
+   ownerID: ""
 };
 
 export default config;

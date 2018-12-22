@@ -1,0 +1,30 @@
+{
+  "commands": [
+    {
+      "id": "misc/1",
+      "name": "Help",
+      "description": "Shows you how to use this thing.",
+      "category": 0,
+      "usage": [
+        {
+          "description": "Show the categories",
+          "usage": "<command>",
+          "example": "ib$help"
+        },
+        {
+          "description": "Show all the commands in a specific category",
+          "usage": "<command> category <category>",
+          "example": "ib$help category 0"
+        },
+        {
+          "description": "Show help for a specific command",
+          "usage": "<command> command <id>",
+          "example": "ib$help command misc/1"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    "💭 Miscellaneous"
+  ]
+}
