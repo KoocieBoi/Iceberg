@@ -1,140 +1,95 @@
-import { RichEmbed } from "discord.js";
-import { isMention } from "../utils/main";
-import low from "lowdb";
-import moment from "moment";
+import { alreadyGaveUserAppreciation } from "../errors/alreadyGaveUserAppreciation"
+import { gaveAppreciation } from "../messages/GaveAppreciation"
+import { isMention } from "../utils/main"
+import low from "lowdb"
+import moment from "moment"
+import { notAMention } from "../errors/notAMention"
 
-const FileSync = require("lowdb/adapters/FileSync");
+const FileSync = require("lowdb/adapters/FileSync")
 
-const likeDBAdapter = new FileSync("./.data/db/likedislike.json");
-const likeDB = low(likeDBAdapter);
+const likeDBAdapter = new FileSync("./.data/db/likedislike.json")
+const likeDB = low(likeDBAdapter)
 
-const embeds = {
-   alreadyGaveThat (timestamp) {
-      return new RichEmbed()
-         .setColor("#36393F")
-         .setFooter("You already gave that user a like or dislike.")
-         .setTimestamp(timestamp);
-   },
-   gaveAppr (cmd, mention, user) {
-      return new RichEmbed()
-         .setColor("#36393F")
-         .setDescription(`You gave a \`${cmd}\` to ${mention}`)
-         .setTimestamp()
-         .setFooter(`${user.likes} likes / ${user.dislikes} dislikes`, mention.user.avatarURL);
-   },
-   notAMention () {
-      return new RichEmbed()
-         .setColor("#36393F")
-         .setFooter("That is not a valid mention!");
-   }
-};
-
-likeDB.defaults({ "likedislike": [] }).write();
+likeDB.defaults({ likedislike: [] }).write()
 
 const exec = (client, msg, cmd, args) => {
-   
-   if (cmd !== "like" && cmd !== "dislike") {
-      return;
-   }
    if (args[1]) {
-      return;
+      return
    }
 
-   const mention = isMention(msg, args[0]);
+   const mention = isMention(msg, args[0])
 
    if (mention.user.id === msg.author.id) {
-      msg.react("526061956952489984");
-      return;
+      return msg.react("526061956952489984")
    }
 
    if (mention) {
       const userInDB = likeDB
          .get("likedislike")
-         .filter({ "id": mention.user.id });
-      const mentionUser = userInDB.value();
+         .filter({ id: mention.user.id })
+      const mentionUser = userInDB.value()
 
       if (mentionUser[0]) {
-         const indexUser = likeDB
-            .get("likedislike")
-            .value()
-            .indexOf(mentionUser[0]);
+         const indexUser = likeDB.get("likedislike").value().indexOf(mentionUser[0])
          const appreciations = likeDB
             .get(`likedislike[${indexUser}].appreciations`)
-            .filter({ "from": msg.author.id });
-
-         /*
-          * !!!
-          * const indexAppr = likeDB
-          *    .get(`likedislike[${indexUser}].appreciations`)
-          *    .value()
-          *    .indexOf(appreciations.value()[0]);
-          */
-
+            .filter({ from: msg.author.id })
 
          if (appreciations.value()[0]) {
-            const dateDB = appreciations.value()[0].onDate;
+            const dateDB = appreciations.value()[0].onDate
+            const formattedDate = moment(dateDB).toDate()
 
-            msg.channel.send({ "embed": embeds.alreadyGaveThat(moment(dateDB).toDate()) });
-         } else {
+            msg.channel.send({ embed: alreadyGaveUserAppreciation(formattedDate) })
+         }
+         else {
             likeDB.get(`likedislike[${indexUser}].appreciations`)
                .push({
-                  "from": msg.author.id,
-                  "type": cmd,
-                  "onDate": moment().format("YYYYMMDDThhmm")
+                  from: msg.author.id,
+                  type: cmd,
+                  onDate: moment().format("YYYYMMDDThhmm")
                })
-               .write();
+               .write()
 
-            const { likes, dislikes } = mentionUser[0];
+            const { likes, dislikes } = mentionUser[0]
+            const apprAssign = cmd === "like" ? { likes: likes + 1 } : { dislikes: dislikes + 1 }
 
-            if (cmd === "like") {
-               likeDB.get(`likedislike[${indexUser}]`)
-                  .assign({
-                     "likes": likes + 1
-                  })
-                  .write();
-            } else {
-               likeDB.get(`likedislike[${indexUser}]`)
-                  .assign({
-                     "dislikes": dislikes + 1
-                  })
-                  .write();
-            }
+            likeDB.get(`likedislike[${indexUser}]`)
+               .assign(apprAssign)
+               .write()
+
             msg.channel.send({
-               "embed": embeds.gaveAppr(cmd, mention, userInDB.value()[0])
-            });
+               embed: gaveAppreciation(cmd, mention, userInDB.value()[0])
+            })
          }
-      } else {
-         let noUserDislikes = 0,
-            noUserLikes = 0;
-
-         if (cmd === "like") {
-            noUserLikes = 1;
-         } else {
-            noUserDislikes = 1;
-         }
-
+      }
+      else {
          likeDB.get("likedislike")
             .push({
-               "id": mention.user.id,
-               "likes": noUserLikes,
-               "dislikes": noUserDislikes,
-               "appreciations": [
+               id: mention.user.id,
+               likes: cmd === "like" ? 1 : 0,
+               dislikes: cmd === "like" ? 0 : 1,
+               appreciations: [
                   {
-                     "from": msg.author.id,
-                     "type": cmd,
-                     "onDate": moment().format("YYYYMMDDThhmm")
+                     from: msg.author.id,
+                     type: cmd,
+                     onDate: moment().format("YYYYMMDDThhmm")
                   }
                ]
             })
-            .write();
+            .write()
 
          msg.channel.send({
-            "embed": embeds.gaveAppr(cmd, mention, userInDB.value()[0])
-         });
+            embed: gaveAppreciation(cmd, mention, userInDB.value()[0])
+         })
       }
-   } else {
-      msg.channel.send({ "embed": embeds.notAMention() });
    }
-};
+   else {
+      msg.channel.send({ embed: notAMention })
+   }
+}
 
-export { exec };
+const settings = {
+   aliases: [ "like", "dislike" ]
+}
+
+export { exec, settings }
