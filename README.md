@@ -1,4 +1,4 @@
-<div style="text-align: center;" markdown="1">
+<div align="center">
 
 ## Iceberg
 

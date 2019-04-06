@@ -4,6 +4,7 @@
         "sourceType": "module",
         "ecmaFeatures": {}
     },
+    "parser": "@typescript-eslint/parser",
     "rules": {
         "accessor-pairs": 2,
         "array-bracket-newline": [

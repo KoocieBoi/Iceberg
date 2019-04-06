@@ -1,0 +1,14 @@
+{
+   "compilerOptions": {
+      "target": "esnext",
+      "module": "esnext",
+      "outDir": "botfiles_js"
+   },
+   "include": [
+      "botfiles_ts/*/"
+   ],
+   "exclude": [
+      "node_modules",
+      "botfiles_js"
+   ]
+}
