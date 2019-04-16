@@ -1,14 +1,19 @@
 {
    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+         "discord.js": [ "node_modules/discord.js/typings/index.d.ts" ]
+      },
       "target": "esnext",
-      "module": "esnext",
-      "outDir": "botfiles_js"
+      "module": "commonjs",
+      "outDir": "BotFiles-js"
    },
    "include": [
-      "botfiles_ts/*/"
+      "BotFiles-ts/**/*"
    ],
    "exclude": [
       "node_modules",
-      "botfiles_js"
+      "BotFiles-js",
+      "Data"
    ]
 }

@@ -4,7 +4,7 @@
   "description": "the new Cloudy; bad code but hopefully better.",
   "main": ".js",
   "scripts": {
-    "start": "tsc && npx babel-node botfiles_js/start.js"
+    "start": "tsc && npx babel-node BotFiles-js/bot.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,12 @@
   },
   "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
   "dependencies": {
-    "typescript": "^3.4.2"
+    "@types/loglevel": "^1.5.4",
+    "@types/node": "^11.13.1",
+    "chalk": "^2.4.2",
+    "discord.js": "^11.4.2",
+    "typescript": "^3.4.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

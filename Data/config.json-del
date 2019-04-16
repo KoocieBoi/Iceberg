@@ -1,0 +1,13 @@
+const config = {
+   credentials: {
+      token: ""
+   },
+   bot: {
+      id: "",
+      letterPrefix: "",
+      mentionPrefix: "<@id_here> "
+   },
+   ownerID: ""
+};
+
+export default config;
