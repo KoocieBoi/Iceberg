@@ -1,33 +1,12 @@
 import { Client } from "discord.js"
 import { readdir } from  "fs"
-import * as winston from "winston"
-import chalk from "chalk"
+import { log } from "./Util/logger"
 
 const { credentials } = require("../Data/config.json")
 
-interface ClientOptionsInterface {
-   apiRequestMethod? : string,
-   shardId? : number,
-   shardCount? : number,
-   messageCacheMaxSize? : number,
-   messageCacheLifetime? : number,
-   messageSweepInterval? : number,
-   fetchAllMembers? : boolean,
-   disableEveryone?: boolean,
-   sync? : boolean,
-   restWsBridgeTimeout? : number,
-   restTimeOffset? : number
-}
-
-interface OptionsInterface {
-   token: string,
-   clientOptions? : ClientOptionsInterface
-}
-
-export class Bot {
+class Bot {
    client: Client
    botOptions: OptionsInterface
-
    
    constructor (options : OptionsInterface) {
       if (options.clientOptions) this.client = new Client(options.clientOptions)
@@ -56,21 +35,40 @@ export { Client }
 
 function logIntoBot(client: Client, token : string) : void {
    client.login(token)
-      .then(() => console.log("good"))
+      .then(() => log.info(`Successfully logged in as ${client.user.tag}!`))
+      .catch(error => log.error(error))
 }
 
 function loadEvents(client: Client) : void {
    readdir("./BotFiles-js/Events", (encounteredError, files) => {
-      if (encounteredError) console.log(encounteredError)
+      if (encounteredError) log.error(encounteredError)
       files.forEach(event => {
-         if (!event.endsWith(".js")) return //note
+         if (!event.endsWith(".js")) return
          let eventName = event.split(".")[0]
          let executeEvent = require(`./Events/${event}`)
-         // log
          
-         client.on(eventName, (...args) => {
+         client.on(eventName, (...args) =>
             executeEvent.run(client, ...args)
-         })
+         )
       })
    })
+}
+
+interface ClientOptionsInterface {
+   apiRequestMethod? : string,
+   shardId? : number,
+   shardCount? : number,
+   messageCacheMaxSize? : number,
+   messageCacheLifetime? : number,
+   messageSweepInterval? : number,
+   fetchAllMembers? : boolean,
+   disableEveryone?: boolean,
+   sync? : boolean,
+   restWsBridgeTimeout? : number,
+   restTimeOffset? : number
+}
+
+interface OptionsInterface {
+   token: string,
+   clientOptions? : ClientOptionsInterface
 }
