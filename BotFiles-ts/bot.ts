@@ -2,7 +2,7 @@ import { Client } from "discord.js"
 import { readdir } from  "fs"
 import { log } from "./Util/logger"
 
-const { credentials } = require("../Data/config.json")
+const { credentials, bot } = require("../Data/config.json")
 
 class Bot {
    client: Client
@@ -26,12 +26,12 @@ class Bot {
 }
 
 const IcebergEntity = new Bot({
-   token: credentials.token
+   token: credentials.token,
+   clientID: bot.id,
+   prefix: bot.prefix
 })
 
 IcebergEntity.start()
-
-export { Client }
 
 function logIntoBot(client: Client, token : string) : void {
    client.login(token)
@@ -55,20 +55,22 @@ function loadEvents(client: Client) : void {
 }
 
 interface ClientOptionsInterface {
-   apiRequestMethod? : string,
-   shardId? : number,
-   shardCount? : number,
-   messageCacheMaxSize? : number,
-   messageCacheLifetime? : number,
-   messageSweepInterval? : number,
-   fetchAllMembers? : boolean,
+   apiRequestMethod?: string,
+   shardId?: number,
+   shardCount?: number,
+   messageCacheMaxSize?: number,
+   messageCacheLifetime?: number,
+   messageSweepInterval?: number,
+   fetchAllMembers?: boolean,
    disableEveryone?: boolean,
-   sync? : boolean,
-   restWsBridgeTimeout? : number,
-   restTimeOffset? : number
+   sync?: boolean,
+   restWsBridgeTimeout?: number,
+   restTimeOffset?: number
 }
 
 interface OptionsInterface {
    token: string,
-   clientOptions? : ClientOptionsInterface
+   clientID: string,
+   prefix: string
+   clientOptions?: ClientOptionsInterface
 }
