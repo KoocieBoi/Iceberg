@@ -1,19 +1,29 @@
 import { Client, Message } from "discord.js"
-import { readdir } from  "fs"
-import { log } from "../Util/logger"
+import { CommandsMap } from "./ready"
+
+const config = require("../../Data/config.json")
+const botInfo = config.bot
 
 export function run(client: Client, message: Message) {
-   readdir("./BotFiles-js/Commands", (err, files) => {
-      if (err) log.error(err)
-      
-      files.forEach(command => {
-         if (!command.endsWith(".js")) return log.warning(`Found file in commands folder that is not a JS file! (${command})`)
-         
-         const cmdClass = require(`../Commands/${command}`).default
-         const cmd = new cmdClass()
-         
-         cmd.check(message)
-         if (cmd.check(message)) cmd.run(client, message, cmd.arguments, cmd.cmd)
-      })
+
+   // ❤️ https://gist.github.com/Anish-Shobith/10cfa62b2defd396d87ff4c50be897f8
+   const prefixRegExp = new RegExp(`^(<@!?${botInfo.id}>|\\${botInfo.prefix})\\s*`)
+   if (!prefixRegExp.test(message.content)) return
+   
+   const testPrefix = prefixRegExp.exec(message.content)[0]
+   let args = message.content
+      .replace(testPrefix, "")
+      .trim()
+      .split(" ")
+   const command = args[0]
+   args.splice(0, 1)
+
+   CommandsMap.forEach((cmdObject, aliases) => {
+      if (aliases.indexOf(command) !== -1) {
+         cmdObject.check(message)
+         if (cmdObject.check(message)) {
+            cmdObject.run(message.client, message, args, command)
+         }
+      }
    })
 }

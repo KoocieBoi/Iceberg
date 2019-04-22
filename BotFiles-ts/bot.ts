@@ -14,7 +14,7 @@ class Bot {
       this.botOptions = options;
    }
    start () : void {
-      let { client } = this,
+      const { client } = this,
          { token } = this.botOptions;
 
       logIntoBot(client, token)
@@ -45,7 +45,7 @@ function loadEvents(client: Client) : void {
       files.forEach(event => {
          if (!event.endsWith(".js")) return
          let eventName = event.split(".")[0]
-         let executeEvent = require(`./Events/${event}`)
+         const executeEvent = require(`./Events/${event}`)
          
          client.on(eventName, (...args) =>
             executeEvent.run(client, ...args)
