@@ -1,5 +1,4 @@
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -66,4 +65,7 @@ old
 Data/config.json
 node_modules/
 BotFiles-js
-Logs/
+logs/*
+!logs/logs.here
+Data/Databases/*
+!Data/Databases/db.here
