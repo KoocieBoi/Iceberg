@@ -20,7 +20,6 @@ export function run(client: Client, message: Message) {
 
    CommandsMap.forEach((cmdObject, aliases) => {
       if (aliases.indexOf(command) !== -1) {
-         cmdObject.check(message)
          if (cmdObject.check(message)) {
             cmdObject.run(message.client, message, args, command)
          }

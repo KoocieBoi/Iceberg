@@ -18,8 +18,11 @@
   "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
   "dependencies": {
     "@types/node": "^11.13.1",
+    "better-sqlite-pool": "^0.2.2",
     "discord.js": "^11.4.2",
+    "enmap": "^4.8.4",
     "logform": "^2.1.2",
+    "moment": "^2.24.0",
     "typescript": "^3.4.2",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.8.0"
