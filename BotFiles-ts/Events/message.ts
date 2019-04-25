@@ -8,8 +8,9 @@ export function run(client: Client, message: Message) {
 
    // ❤️ https://gist.github.com/Anish-Shobith/10cfa62b2defd396d87ff4c50be897f8
    const prefixRegExp = new RegExp(`^(<@!?${botInfo.id}>|\\${botInfo.prefix})\\s*`)
+
    if (!prefixRegExp.test(message.content)) return
-   
+
    const testPrefix = prefixRegExp.exec(message.content)[0]
    let args = message.content
       .replace(testPrefix, "")

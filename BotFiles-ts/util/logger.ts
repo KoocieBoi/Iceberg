@@ -2,8 +2,8 @@ import { format as logFormat } from "logform"
 import * as wst from "winston"
 import * as wstDRF from "winston-daily-rotate-file"
 
-let d = new Date()
-let dateFormat = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()} @ ${d.getHours()}:${d.getMinutes()}`
+const d = new Date()
+const dateFormat = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()} @ ${d.getHours()}:${d.getMinutes()}`
 
 const colors = {
    info: "green bold underline",
@@ -15,20 +15,18 @@ const colors = {
 wst.addColors(colors)
 
 const consoleLogFormat = logFormat.combine(
-   wst.format.colorize({
-            colors: colors
-   }),
+   wst.format.colorize({ colors }),
    wst.format.timestamp({
       format: dateFormat
    }),
-   wst.format.printf(log => `(${log.timestamp}) ${log.level} ➜  ${log.message}`)
- ),
-   fileLogFormat = logFormat.combine(
-      wst.format.timestamp({
-         format: dateFormat
-      }),
-      wst.format.printf(log => `(${log.timestamp}) ${log.level}:  ${log.message}`)
-   )
+   wst.format.printf(toLog => `(${toLog.timestamp}) ${toLog.level} ➜  ${toLog.message}`)
+ )
+const fileLogFormat = logFormat.combine(
+   wst.format.timestamp({
+      format: dateFormat
+   }),
+   wst.format.printf(toLog => `(${toLog.timestamp}) ${toLog.level}:  ${toLog.message}`)
+)
 
 export const log = wst.createLogger({
    level: "silly",
@@ -50,11 +48,11 @@ export const log = wst.createLogger({
          maxFiles: "5",
       })
    ],
-   levels: { 
-      error: 0, 
-      warning: 1, 
-      debug: 2, 
-      info: 3, 
+   levels: {
+      error: 0,
+      warning: 1,
+      debug: 2,
+      info: 3,
       silly: 4
    },
    exitOnError: false

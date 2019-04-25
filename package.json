@@ -23,6 +23,7 @@
     "enmap": "^4.8.4",
     "logform": "^2.1.2",
     "moment": "^2.24.0",
+    "tslint": "^5.16.0",
     "typescript": "^3.4.2",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.8.0"

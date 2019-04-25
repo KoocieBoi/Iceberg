@@ -2,9 +2,9 @@ import { Client } from "discord.js"
 import { readdir } from "fs"
 import { log } from "../Util/logger"
 
-let CommandsMap = new Map()
+const CommandsMap = new Map()
 
-export { CommandsMap } 
+export { CommandsMap }
 
 export function run(client: Client) {
    readdir("./BotFiles-js/Commands", (err, files) => {
@@ -13,7 +13,7 @@ export function run(client: Client) {
       }
       files.forEach(cmd => {
          if (!cmd.endsWith(".js")) return log.warning(`Found file in commands folder that is not a JS file! (${cmd})`)
-         
+
          const commandClass = require(`../Commands/${cmd}`).default
          const command = new commandClass()
 
