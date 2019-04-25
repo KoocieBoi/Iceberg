@@ -6,7 +6,9 @@
       },
       "target": "esnext",
       "module": "commonjs",
-      "outDir": "BotFiles-js"
+      "outDir": "BotFiles-js",
+      "resolveJsonModule": true,
+      "esModuleInterop": true
    },
    "include": [
       "BotFiles-ts/**/*"

@@ -1,14 +1,12 @@
 import { Message, Client } from "discord.js"
 import databases from "./databases"
-import * as moment from "moment"
-
-const config = require("../../Data/config.json")
-const { ownerID } = config
+import moment from "moment"
+import { ownerID } from "../../Data/config.json"
 
 export abstract class Command {
-   public commandOptions: commandOptionsInterface
+   public commandOptions: CommandOptionsInterface
 
-   constructor(commandOptions: commandOptionsInterface) {
+   constructor(commandOptions: CommandOptionsInterface) {
       this.commandOptions = commandOptions
    }
 
@@ -57,7 +55,7 @@ export function setCooldown(commandName: string, authorId: string) : void {
    databases.cooldowns.set(authorId, toPush)
 }
 
-interface commandOptionsInterface {
+interface CommandOptionsInterface {
    name: string,
    aliases: string[],
    cooldown?: {
