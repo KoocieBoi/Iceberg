@@ -69,3 +69,5 @@ logs/*
 !logs/logs.here
 Data/Databases/*
 !Data/Databases/db.here
+Data/Images/*
+!Data/Images/images.here
