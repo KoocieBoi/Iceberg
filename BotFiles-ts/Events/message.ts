@@ -1,6 +1,6 @@
 import { Client, Message } from "discord.js"
 import { CommandsMap } from "./ready"
-import config from "../../Data/config.json"
+const config = require("../../Data/config.json")
 
 const botInfo = config.bot
 

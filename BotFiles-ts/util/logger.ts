@@ -1,6 +1,6 @@
 import { format as logFormat } from "logform"
 import * as wst from "winston"
-import * as wstDRF from "winston-daily-rotate-file"
+import wstDRF from "winston-daily-rotate-file"
 
 const d = new Date()
 const dateFormat = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()} @ ${d.getHours()}:${d.getMinutes()}`

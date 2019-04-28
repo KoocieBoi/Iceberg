@@ -1,8 +1,10 @@
 import { Client } from "discord.js"
 import { readdir } from "fs"
 import { log } from "./Util/logger"
-import { credentials, bot } from "../Data/config.json"
+const config = require("../Data/config.json")
 import databases from "./Util/databases"
+
+const { credentials, bot }  = config
 
 class Bot {
    public client: Client
