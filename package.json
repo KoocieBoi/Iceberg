@@ -18,20 +18,21 @@
   "homepage": "https://github.com/KoocieBoi/Iceberg#readme",
   "dependencies": {
     "@types/common-tags": "^1.8.0",
-    "@types/node": "^11.13.1",
+    "@types/node": "^11.13.13",
+    "axios": "^0.18.1",
     "better-sqlite-pool": "^0.2.2",
     "common-tags": "^1.8.0",
-    "discord.js": "^11.4.2",
-    "enmap": "^4.8.4",
+    "discord.js": "^11.5.1",
+    "enmap": "^4.8.7",
     "logform": "^2.1.2",
     "moment": "^2.24.0",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1",
     "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^3.8.0"
+    "winston-daily-rotate-file": "^3.9.0"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^1.7.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
