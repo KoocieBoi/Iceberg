@@ -34,11 +34,9 @@ export default class extends Command {
 
       const messages = {
          helpNoArgsResponse: new RichEmbed()
-            .attachFile("./Data/Images/help-thumbnail.png")
-            .setThumbnail("attachment://help-thumbnail.png")
             .setColor(SUCCESS_COLOR_EMBED)
             .setTitle("Bot commands")
-            .setFooter("help <command> for detailed use", "attachment://help-footer.png"),
+            .setFooter("help <command> for detailed use"),
          helpSpecificCommandResponse: new RichEmbed()
             .setColor(SUCCESS_COLOR_EMBED)
 
