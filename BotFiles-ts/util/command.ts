@@ -55,19 +55,21 @@ export abstract class Command {
          const commandName = options.name
          const authorID = message.author.id
 
-         const cooldownAuthor = databases.cooldowns.get(authorID)[commandName]
-
+         const cooldownAuthor = databases.cooldowns.get(authorID)
          if (cooldownAuthor) {
+            const cooldownCommand = databases.cooldowns.get(authorID)[commandName]
 
-            const cooldown = {
-               amount: options.cooldown.amount,
-               unit: options.cooldown.unit
-            }
+            if (cooldownCommand) {
 
-            const commandAvailable =  moment(cooldownAuthor).add(cooldown.amount, cooldown.unit)
-            const now = moment()
+               const cooldown = {
+                  amount: options.cooldown.amount,
+                  unit: options.cooldown.unit
+               }
 
-            if (commandAvailable > moment()) {
+               const commandAvailable =  moment(cooldownCommand).add(cooldown.amount, cooldown.unit)
+               const now = moment()
+
+               if (commandAvailable > moment()) {
                const remainingCooldown = moment
                   .duration(commandAvailable.diff(now))
                   .humanize(true)
@@ -79,6 +81,7 @@ export abstract class Command {
                   .then((sentMessage) => log.info("Successfully sent commandOnCooldown error message!"))
                   .catch((error) => log.error(`There was an error while sending commandOnCooldown error.\n${error}`))
                return false
+               }
             }
          }
       }
@@ -123,6 +126,17 @@ export function setCooldown(commandName: string, authorId: string) : void {
 
    databases.cooldowns.set(authorId, toPush)
 }
+
+export const categories = [
+   {
+      id: "misc",
+      name: "🔮 Misc"
+   },
+   {
+      id: "photos",
+      name: "🖼 Photos"
+   }
+]
 
 interface CommandOptionsInterface {
    name: string,
