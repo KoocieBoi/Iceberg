@@ -1,0 +1,36 @@
+import { Command, setCooldown } from "../Util/command"
+import { Client, Message, RichEmbed } from "discord.js"
+
+export default class extends Command {
+   constructor() {
+      super({
+         name: "",
+         category: "",
+         description: "",
+         aliases: [ "" ],
+         cooldown: {
+            amount: 10,
+            unit: "s"
+         },
+         ownerOnly: false,
+         usages:  [
+            {
+               description: "",
+               example: ""
+            }
+         ]
+      })
+   }
+
+   run(client: Client, message: Message, args: string[], command: string) {
+      const messages = {
+         example: new RichEmbed()
+      }
+
+      /**
+       * Code Here
+       */
+
+      setCooldown("", message.author.id)
+   }
+}
