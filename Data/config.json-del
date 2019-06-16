@@ -1,13 +1,14 @@
-const config = {
-   credentials: {
-      token: ""
+{
+   "credentials": {
+      "token": ""
    },
-   bot: {
-      id: "",
-      letterPrefix: "",
-      mentionPrefix: "<@id_here> "
+   "bot": {
+      "id": "",
+      "prefix": "#ib "
    },
-   ownerID: ""
-};
-
-export default config;
+   "encrypt": {
+      "encryptionKey": "",
+      "salt": ""
+   },
+   "ownerID": ""
+}
