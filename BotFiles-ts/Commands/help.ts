@@ -59,15 +59,31 @@ export default class extends Command {
             if (aliases.indexOf(args[0]) !== -1) {
                // finish embed
                const commandName = commandOptions.options.name
+               const { description, category, usages } = commandOptions.options
                let aliasesString = ""
-               const { usages } = commandOptions.options
                let usagesString = ""
-               const { description } = commandOptions.options
-               const { category } = commandOptions.options
+               const { phases, limits } = commandOptions.options
+               let phasesString = ""
+               let limitsString = ""
 
                aliases.forEach(alias => aliasesString += `\`${alias}\` `)
                usages.forEach(usage => usagesString += `> ${usage.description}\n# ${usage.example}\n\n`)
-               usagesString =  "```md\n" + usagesString + "```"
+               usagesString =  "```md\n" + usagesString
+
+               if (phases) {
+                  phases.forEach(phase => {
+                     phasesString += `${phase} >> `
+                  })
+                  phasesString += "Finish"
+                  usagesString += `[Phases]: ${phasesString}\`\`\``
+               }
+               else usagesString += "```"
+
+               if (limits) limits.forEach(limit => {
+                  limitsString += `- ${limit} \n`
+               })
+
+               limitsString = `\`\`\`md\n${limitsString}\`\`\``
 
                messages.helpSpecificCommandResponse
                   .addField("Basic info", stripIndents`
@@ -77,6 +93,9 @@ export default class extends Command {
                      **Aliases:** ${aliasesString}
                   `, true)
                   .addField("Usages", usagesString, true)
+
+               if (limits) messages.helpSpecificCommandResponse
+                  .addField("Limits", limitsString, true)
 
                message.channel.send({ embed: messages.helpSpecificCommandResponse })
                   .then(sentMessage => log.info("Successfully sent helpSpecificCommand response!"))
