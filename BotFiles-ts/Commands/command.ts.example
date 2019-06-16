@@ -18,7 +18,13 @@ export default class extends Command {
                description: "",
                example: ""
             }
-         ]
+         ],
+         limits: [ "" ],
+         phases: [ "" ],
+         permissions: {
+            bot: [],
+            member: []
+         }
       })
    }
 
