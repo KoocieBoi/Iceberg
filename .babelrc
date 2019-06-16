@@ -1,1 +1,10 @@
-{ "presets": ["stage-2", "env"] }
+{
+   "presets": [
+      "stage-2",
+      [
+         "env", {
+            "exclude": [ "transform-es2015-classes" ]
+         }
+      ]
+   ]
+}
