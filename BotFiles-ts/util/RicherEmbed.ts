@@ -10,7 +10,7 @@ import { log } from "./logger";
 export class RicherEmbed extends RichEmbed {
    public embedName : string
 
-   constructor(embedName, embedObject) {
+   constructor(embedName?, embedObject?) {
       super(embedObject)
    }
 
