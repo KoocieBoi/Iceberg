@@ -1,0 +1,24 @@
+{
+  "name": "iceberg-bot-remake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/bot.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/bot.js",
+    "bstart": "tsc && node build/bot.js"
+  },
+  "keywords": [],
+  "author": "koocieyu",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "1.18.2",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
+  "prettier": {
+    "semi": false
+  }
+}

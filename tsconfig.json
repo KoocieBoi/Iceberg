@@ -1,0 +1,15 @@
+{
+  "compileOnSave": true,
+  "include": [ "dev/**/*" ],
+  "exclude": [ "node_modules", "build", "data" ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "paths": {
+      "discord.js": [ "node_modules/discord.js/typings/index.d.ts" ]
+    },
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "target": "es2015"
+  }
+}
